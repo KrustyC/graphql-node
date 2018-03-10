@@ -1,4 +1,12 @@
 import userQueries from './queries'
 import userMutations from './mutations'
 
-export { userQueries, userMutations }
+export default {
+  Query: {
+    ...userQueries
+  },
+  Mutation: {
+    ...userMutations
+  }
+}
+

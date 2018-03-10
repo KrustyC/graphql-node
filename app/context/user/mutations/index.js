@@ -1,9 +1,8 @@
-import addUser from './add'
-import removeUser from './remove'
-import updateUser from './update'
+import User from '../schema'
 
-module.exports = {
-  addUser,
-  removeUser,
-  updateUser
+export default {
+  addUser: (root, { name }) => {
+    const newUser = new User({ name })
+    return newUser.save()
+  }
 }

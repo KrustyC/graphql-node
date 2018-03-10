@@ -1,9 +1,9 @@
 import { combineResolvers } from 'apollo-resolvers'
 
-import Author from '../context/author'
+import User from '../context/user'
 
 const resolvers = combineResolvers([
-  Author
+  User
   // , SomethingElse
 ])
 

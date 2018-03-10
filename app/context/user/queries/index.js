@@ -1,17 +1,6 @@
-import { GraphQLList } from 'graphql'
-import userSchema from '../schema'
-import userType from '../types'
+import UserSchema from '../schema' // @TODO add and use a repository/serivce
 
-// Query
 export default {
-  users: {
-    type: new GraphQLList(userType),
-    resolve() {
-      const users = userSchema.find().exec()
-      if (!users) {
-        throw new Error('Error')
-      }
-      return users
-    }
-  }
+  users: () => UserSchema.find({}),
+  user: (root, { id }) => UserSchema.findOne({ _id: id })
 }

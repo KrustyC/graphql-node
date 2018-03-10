@@ -1,18 +1,19 @@
 import { makeExecutableSchema } from 'graphql-tools'
 import resolvers from './resolvers'
 
+
+// Check how to use multiple schemas (trying with posts)
 const typeDefs = `
   type Query {
-    author(firstName: String, lastName: String): Author
-    authors: [Author]
+    user(firstName: String, lastName: String): User
+    users: [User]
   }
-  type Author {
+  type User {
     id: String
-    firstName: String
-    lastName: String
+    name: String
   }
   type Mutation {
-    addAuthor(firstName: String, lastName: String): Author
+    addUser(name: String): User
   }
 `
 
