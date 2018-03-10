@@ -5,7 +5,7 @@ import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import morgan from 'morgan'
 import compression from 'compression'
 import bodyParser from 'body-parser'
-import schema from './schema'
+import schema from './graphql/schema'
 import connectToDb from './config/db'
 
 import config from './config/config'
