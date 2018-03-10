@@ -1,6 +1,6 @@
 import { GraphQLSchema, GraphQLObjectType } from 'graphql'
 
-import { userQueries, userMutations } from './users'
+import { userQueries, userMutations } from '../context/user'
 
 export default new GraphQLSchema({
   query: new GraphQLObjectType({

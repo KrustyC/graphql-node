@@ -3,7 +3,7 @@ import { GraphQLList, GraphQLNonNull } from 'graphql'
 import { internet, random } from 'faker'
 import isEmail from 'validator/lib/isEmail'
 
-import { UserType, UserInputType } from './usersTypes'
+import { UserType, UserInputType } from './types'
 
 const userQueries = {
   users: {
