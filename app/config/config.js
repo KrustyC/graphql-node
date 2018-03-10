@@ -7,6 +7,9 @@ const configValues = {
   apiPort: env.API_PORT,
   appUrl: env.APP_URL,
   jwtSecret: env.JWT_SECRET,
+  engine: {
+    apiKey: env.APOLLO_ENGINE_API_KEY
+  },
   dbConfig: {
     mock: env.DB_IS_MOCK || false,
     name: env.DB_NAME,

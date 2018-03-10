@@ -1,28 +1,40 @@
 import express from 'express'
 import cors from 'cors'
-import graphqlHTTP from 'express-graphql'
-import bodyParser from 'body-parser'
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
+// import { Engine } from 'apollo-engine'
 import morgan from 'morgan'
-
-import schema from './config/graphql'
+import compression from 'compression'
+import bodyParser from 'body-parser'
+import schema from './schema'
 import connectToDb from './config/db'
 
 import config from './config/config'
 
 const app = express()
 
+// @TODO Get an Apollo Engine Key
+// const engine = new Engine({
+//   engineConfig: {
+//     apiKey: config('engine.apiKey')
+//   },
+//   graphqlPort: config('apiPort')
+// })
+
+// engine.start()
+
+// // This must be the first middleware
+// app.use(engine.expressMiddleware())
+
+
 app.use(cors())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(compression())
 app.use(bodyParser.json())
 
-app.use('/graphql', graphqlHTTP({
+app.use('/graphql', graphqlExpress({
   schema,
-  graphiql: config('env') === 'development'
+  tracing: true
 }))
-
-app.use('/', (req, res) => {
-  res.json('Go to /graphql to test your queries and mutations!')
-})
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
 
 if (config('env') === 'development') {
   app.use(morgan('dev'))
