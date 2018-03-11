@@ -10,10 +10,12 @@ const typeDefs = `
   }
   type User {
     id: String
-    name: String
+    email: String
+    firstName: String
+    lastName: String
   }
   type Mutation {
-    addUser(name: String): User
+    addUser(email: String, firstName: String, lastName: String, password: String): User
   }
 `
 

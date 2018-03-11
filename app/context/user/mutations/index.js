@@ -1,8 +1,7 @@
-import User from '../schema'
+import UserService from '../services'
+
+const userService = new UserService()
 
 export default {
-  addUser: (root, { name }) => {
-    const newUser = new User({ name })
-    return newUser.save()
-  }
+  addUser: (root, args) => userService.create(args)
 }

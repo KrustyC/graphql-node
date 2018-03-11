@@ -1,6 +1,8 @@
-import UserSchema from '../schema' // @TODO add and use a repository/serivce
+import UserService from '../services'
+
+const userService = new UserService()
 
 export default {
-  users: () => UserSchema.find({}),
-  user: (root, { id }) => UserSchema.findOne({ _id: id })
+  users: () => userService.findAll({}),
+  user: (root, { id }) => userService.findOneById(id)
 }
