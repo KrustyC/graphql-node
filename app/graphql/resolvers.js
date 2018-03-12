@@ -1,10 +1,10 @@
 import { combineResolvers } from 'apollo-resolvers'
 
-import User from '../context/user'
+import { UserResolvers } from './schemas/user'
 
 const resolvers = combineResolvers([
-  User
-  // , SomethingElse
+  UserResolvers
+  // SomethingElse
 ])
 
 export default resolvers

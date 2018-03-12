@@ -30,6 +30,7 @@ app.use(cors())
 app.use(compression())
 app.use(bodyParser.json())
 
+// @TODO Move this to a proper routes file
 app.use('/graphql', graphqlExpress({
   schema,
   tracing: true
