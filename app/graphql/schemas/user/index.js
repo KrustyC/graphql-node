@@ -1,12 +1,12 @@
-import Queries from './queries'
-import Mutations from './mutations'
+import UserContext from '../../../context/user'
 
 export const UserResolvers = {
-  Query: {
-    ...Queries
+  UserQuery: {
+    user: (root, { id }) => UserContext.show(id),
+    users: () => UserContext.index()
   },
-  Mutation: {
-    ...Mutations
+  UserMutation: {
+    addUser: (root, args) => UserContext.create(args)
   }
 }
 
@@ -16,5 +16,14 @@ export const UserSchema = `
     email: String
     firstName: String
     lastName: String
+  }
+
+  type UserQuery {
+    user(id: String): User
+    users: [User]
+  }
+
+  type UserMutation {
+    addUser(email: String, firstName: String, lastName: String, password: String): User
   }
 `

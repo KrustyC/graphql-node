@@ -1,15 +1,23 @@
 import { makeExecutableSchema } from 'graphql-tools'
+import { combineResolvers } from 'apollo-resolvers'
 
-import resolvers from './resolvers'
-import RootQuery from './rootQuery'
-import { UserSchema } from './schemas/user'
+import { UserResolvers, UserSchema } from './schemas/user'
+import { PostResolvers, PostSchema } from './schemas/post'
+
+const rootQuery = `
+  Query {}
+`
 
 const schema = makeExecutableSchema({
   typeDefs: [
-    RootQuery,
-    UserSchema
+    rootQuery,
+    UserSchema,
+    PostSchema
   ],
-  resolvers
+  resolvers: combineResolvers([
+    UserResolvers,
+    PostResolvers
+  ])
 })
 
 export default schema
