@@ -5,8 +5,16 @@ import { UserResolvers, UserSchema } from './schemas/user'
 import { PostResolvers, PostSchema } from './schemas/post'
 
 const rootQuery = `
-  Query {}
+  type Query {
+    test: String
+  }
 `
+
+const rootResolvers = {
+  Query: {
+    test: () => 'Graphql Api'
+  }
+}
 
 const schema = makeExecutableSchema({
   typeDefs: [
@@ -15,6 +23,7 @@ const schema = makeExecutableSchema({
     PostSchema
   ],
   resolvers: combineResolvers([
+    rootResolvers,
     UserResolvers,
     PostResolvers
   ])
