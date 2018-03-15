@@ -11,6 +11,12 @@ const userSchema = new Schema({
 })
 
 // eslint-disable-next-line
+userSchema.virtual('id').get(function () {
+  console.log("virtual")
+  return this._id
+})
+
+// eslint-disable-next-line
 userSchema.pre('save', function (next) {
   const user = this
   user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(12), null)

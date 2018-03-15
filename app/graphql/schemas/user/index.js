@@ -1,11 +1,11 @@
 import UserContext from '../../../context/user'
 
 export const UserResolvers = {
-  UserQuery: {
+  Query: {
     user: (root, { id }) => UserContext.show(id),
     users: () => UserContext.index()
   },
-  UserMutation: {
+  Mutation: {
     addUser: (root, args) => UserContext.create(args)
   }
 }
@@ -18,12 +18,12 @@ export const UserSchema = `
     lastName: String
   }
 
-  type UserQuery {
+  extend type Query {
     user(id: String): User
     users: [User]
   }
 
-  type UserMutation {
+  extend type Mutation {
     addUser(email: String, firstName: String, lastName: String, password: String): User
   }
 `

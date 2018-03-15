@@ -8,6 +8,10 @@ const rootQuery = `
   type Query {
     test: String
   }
+
+  type Mutation {
+    test: String
+  }
 `
 
 const rootResolvers = {

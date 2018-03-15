@@ -9,6 +9,8 @@ export default class UserService {
   }
 
   async findAll() {
+    const x = await this.userRepo.findAll()
+    console.log(x)
     return this.userRepo.findAll()
   }
 

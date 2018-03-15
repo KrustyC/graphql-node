@@ -1,11 +1,11 @@
 import PostContext from '../../../context/post'
 
 export const PostResolvers = {
-  PostQuery: {
+  Query: {
     post: (root, { id }) => PostContext.show(id),
     posts: () => PostContext.index()
   },
-  PostMutation: {
+  Mutation: {
     addPost: (root, args) => PostContext.create(args)
   }
 }
@@ -18,12 +18,12 @@ export const PostSchema = `
     author: User
   }
 
-  type PostQuery {
+  extend type Query {
     post(id: String): User
     posts: [Post]
   }
 
-  type PostMutation {
+  extend type Mutation {
     addPost(title: String, text: String, authorId: String): Post
   }
 `
