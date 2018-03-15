@@ -7,13 +7,8 @@ const userSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   password: { type: String, required: true },
-  updatedAt: Date
-})
-
-// eslint-disable-next-line
-userSchema.virtual('id').get(function () {
-  console.log("virtual")
-  return this._id
+  updatedAt: Date,
+  createdAt: Date
 })
 
 // eslint-disable-next-line
@@ -22,6 +17,7 @@ userSchema.pre('save', function (next) {
   user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(12), null)
   user.email = user.email.toLowerCase()
   user.updatedAt = new Date()
+  user.createdAt = new Date()
   next()
 })
 

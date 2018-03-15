@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import PostRepo from '../repo'
 
 
@@ -14,6 +15,13 @@ export default class PostService {
 
   async findOneById(id) {
     return this.postRepo.findOneBy({ _id: id })
+  }
+
+  async findBy(field, value) {
+    const clause = {}
+    _.set(clause, field, value)
+    console.log(clause)
+    return this.postRepo.findBy(clause)
   }
 
   async create({ title, text, authorId }) {

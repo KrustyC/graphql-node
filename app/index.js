@@ -33,7 +33,7 @@ app.use(bodyParser.json())
 // @TODO Move this to a proper routes file
 app.use('/graphql', graphqlExpress({
   schema,
-  tracing: true
+  tracing: config('env') === 'development'
 }))
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
 

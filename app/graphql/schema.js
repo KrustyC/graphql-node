@@ -1,33 +1,18 @@
 import { makeExecutableSchema } from 'graphql-tools'
 import { combineResolvers } from 'apollo-resolvers'
 
-import { UserResolvers, UserSchema } from './schemas/user'
-import { PostResolvers, PostSchema } from './schemas/post'
-
-const rootQuery = `
-  type Query {
-    test: String
-  }
-
-  type Mutation {
-    test: String
-  }
-`
-
-const rootResolvers = {
-  Query: {
-    test: () => 'Graphql Api'
-  }
-}
+import { RootSchema, RootResolvers } from './schemas/root'
+import { UserSchema, UserResolvers } from './schemas/user'
+import { PostSchema, PostResolvers } from './schemas/post'
 
 const schema = makeExecutableSchema({
   typeDefs: [
-    rootQuery,
+    RootSchema,
     UserSchema,
     PostSchema
   ],
   resolvers: combineResolvers([
-    rootResolvers,
+    RootResolvers,
     UserResolvers,
     PostResolvers
   ])
