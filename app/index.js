@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 // import { Engine } from 'apollo-engine'
+import jwt from 'express-jwt'
 import morgan from 'morgan'
 import compression from 'compression'
 import bodyParser from 'body-parser'
@@ -30,14 +31,23 @@ app.use(cors())
 app.use(compression())
 app.use(bodyParser.json())
 
+const isDevelopment = config('env') === 'development'
+const jwtCheck = jwt({ secret: config('jwtSecret') })
+app.use(jwtCheck)
+
 // @TODO Move this to a proper routes file
-app.use('/graphql', graphqlExpress({
-  schema,
-  tracing: config('env') === 'development'
-}))
+app.use(
+  '/graphql',
+  graphqlExpress(req => ({
+    context: req.user,
+    schema,
+    tracing: isDevelopment
+  }))
+)
+
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
 
-if (config('env') === 'development') {
+if (isDevelopment) {
   app.use(morgan('dev'))
 }
 

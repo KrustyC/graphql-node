@@ -41,4 +41,4 @@ accountSchema.pre('update', function (next) {
   next()
 })
 
-module.exports = mongoose.model('User', accountSchema)
+module.exports = mongoose.model('Account', accountSchema)

@@ -1,19 +1,13 @@
 import { signup } from '../../../context/auth'
 
 export const RootSchema = `
-  type Account {
-    _id: String
-    email: String
-    kind: String
-  }
-
   type Query {
     _: Boolean
   }
 
   type Mutation {
-    login(email: String!, password: String!): User | Author
-    signup(email: String!, password: String!): User | Author
+    login(email: String!, password: String!): User
+    signup(email: String!, password: String!): User
   }
 `
 
