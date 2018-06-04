@@ -1,9 +1,13 @@
-import UserService from './services'
+// @flow
 
-const userService = new UserService()
+// import UserService from './services'
+import UserRepo from './repo'
+
+// const userService = new UserService()
+const userRepo = new UserRepo()
 
 export default {
-  index: () => userService.findAll(),
-  show: id => userService.findOneById(id),
-  create: data => userService.create(data)
+  index: () => userRepo.findAll(),
+  identify: (value: string, by: ?string) => userRepo.identify(value, by),
+  create: (email: string, password: string) => userRepo.create(email, password)
 }
