@@ -39,7 +39,7 @@ const isDevelopment = config('env') === 'development'
 app.use(
   '/graphql',
   bodyParser.json(),
-  jwt({ secret: config('jwtSecret'), credentialIsRequired: false }),
+  jwt({ secret: config('jwtSecret'), credentialsRequired: false }),
   graphqlExpress(req => ({
     context: { user: req.user },
     schema,

@@ -11,7 +11,7 @@ export default class TeacherService {
   }
 
   async exists(email) {
-    const teacher = this.teacherRepo.findBy({ email: toLower(email) })
+    const teacher = await this.teacherRepo.findOneBy({ email: toLower(email) })
     return !!teacher
   }
 }

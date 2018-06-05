@@ -11,7 +11,7 @@ const TEACHER_TYPE = 2
  * @param  {Object}
  * @return {User}
  */
-export async function signup(email: string, type: Number, password: string) {
+export async function signup(email: string, password: string, type: Number) {
   const doesStudentExist = await StudentContext.exists(email)
   const doesTeacherExist = await TeacherContext.exists(email)
   const accountAlreadyExists = doesStudentExist || doesTeacherExist
@@ -21,12 +21,10 @@ export async function signup(email: string, type: Number, password: string) {
   }
 
   switch (type) {
-    case STUDENT_TYPE: {
+    case STUDENT_TYPE:
       return StudentContext.create(email, password)
-    }
-    case TEACHER_TYPE: {
+    case TEACHER_TYPE:
       return TeacherContext.create(email, password)
-    }
     default:
       throw Errors.BadRequestError(400, null, null, { msg: 'Types need to be provided' })
   }

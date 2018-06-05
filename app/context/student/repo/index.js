@@ -21,7 +21,7 @@ export default class StudentRepository extends Repository {
    * @return {Object}
    */
   async create(email: string, password: string) {
-    const teacher = new Student({ email, password })
-    return teacher.save()
+    const student = new Student({ email, password })
+    return student.save()
   }
 }

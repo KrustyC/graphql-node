@@ -11,7 +11,7 @@ export default class StudentService {
   }
 
   async exists(email) {
-    const student = this.studentRepo.findBy({ email: toLower(email) })
+    const student = await this.studentRepo.findOneBy({ email: toLower(email) })
     return !!student
   }
 }

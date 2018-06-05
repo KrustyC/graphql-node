@@ -5,7 +5,6 @@ import mongoose, { Schema } from 'mongoose'
 const options = { discriminatorKey: 'kind' }
 
 const accountSchema = new Schema({
-  _id: { _id: false, type: Schema.Types.ObjectId, ref: 'account' },
   email: { type: String, required: true, unique: true },
   firstName: String,
   lastName: String,
