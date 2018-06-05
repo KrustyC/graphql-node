@@ -29,17 +29,19 @@ const app = express()
 
 app.use(cors())
 app.use(compression())
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
 
 const isDevelopment = config('env') === 'development'
-const jwtCheck = jwt({ secret: config('jwtSecret') })
-app.use(jwtCheck)
+// const jwtCheck = jwt({ secret: config('jwtSecret') })
+// app.use(jwtCheck)
 
 // @TODO Move this to a proper routes file
 app.use(
   '/graphql',
+  bodyParser.json(),
+  jwt({ secret: config('jwtSecret'), credentialIsRequired: false }),
   graphqlExpress(req => ({
-    context: req.user,
+    context: { user: req.user },
     schema,
     tracing: isDevelopment
   }))

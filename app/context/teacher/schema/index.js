@@ -3,8 +3,9 @@ import Account from '../../account/schema'
 
 const options = { discriminatorKey: 'kind' }
 
-const userSchema = new Schema({
-  things: [String]
+const teacherSchema = new Schema({
+  title: String,
+  subject: String
 }, options)
 
-module.exports = Account.discriminator('User', userSchema)
+module.exports = Account.discriminator('Teacher', teacherSchema)
