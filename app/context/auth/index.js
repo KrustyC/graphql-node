@@ -1,33 +1,22 @@
 import Errors from '../../library/errors'
-import StudentContext from '../student'
-import TeacherContext from '../teacher'
+import AccountContext from '../account'
 
-const STUDENT_TYPE = 1
-const TEACHER_TYPE = 2
-
-/**
- * Create a new user
- *
- * @param  {Object}
- * @return {User}
- */
-export async function signup(email: string, password: string, type: Number) {
-  const doesStudentExist = await StudentContext.exists(email)
-  const doesTeacherExist = await TeacherContext.exists(email)
-  const accountAlreadyExists = doesStudentExist || doesTeacherExist
-
-  if (accountAlreadyExists) {
+export async function signup(
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string,
+  type: Number
+) {
+  const doesAccountExist = await AccountContext.exists(email)
+  if (doesAccountExist) {
     throw Errors.BadRequestError(400, null, null, { msg: 'Email address already exists' })
   }
 
-  switch (type) {
-    case STUDENT_TYPE:
-      return StudentContext.create(email, password)
-    case TEACHER_TYPE:
-      return TeacherContext.create(email, password)
-    default:
-      throw Errors.BadRequestError(400, null, null, { msg: 'Types need to be provided' })
-  }
+  // @TOTO if type not in set then throw the error below
+  // throw Errors.BadRequestError(400, null, null, { msg: 'Types need to be provided' })
+
+  return AccountContext.create(firstName, lastName, email, password, type)
 }
 
 /**

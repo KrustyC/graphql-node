@@ -1,5 +1,7 @@
 /* @ flow */
 
+import toLower from 'lodash/toLower'
+
 import Repository from '../../../library/repository'
 
 import Account from '../schema'
@@ -9,25 +11,24 @@ export default class AccountRepository extends Repository {
     super(Account)
   }
 
-  /**
-   * Find an account by email
-   *
-   * @param  {string}      email
-   * @return {Object}
-   */
-  findByEmail(email: string) {
-    return this.findOneBy({ email })
+  async exists(email: string) {
+    const account = await this.findOneBy({ email: toLower(email) })
+    return !!account
   }
 
-  /**
-   * Create a new account
-   *
-   * @param  {string}      email
-   * @param  {string} password
-   * @return {Object}
-   */
-  async create(email: string, password: string) {
-    const account = new Account({ email, password })
+  async create(firstName, lastName, email, password, type) {
+    let kind = null
+
+    // @TOTO Create a dict to map type to kind
+    if (type === 1) {
+      kind = 'Student'
+    }
+
+    if (type === 2) {
+      kind = 'Teacher'
+    }
+
+    const account = new Account({ firstName, lastName, email, password, kind })
     return account.save()
   }
 }

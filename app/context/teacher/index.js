@@ -1,14 +1,12 @@
 // @flow
 
-import TeacherService from './services'
+// import TeacherService from './services'
 import TeacherRepo from './repo'
 
-const teacherService = new TeacherService()
+// const teacherService = new TeacherService()
 const teacherRepo = new TeacherRepo()
 
 export default {
   index: () => teacherRepo.findAll(),
-  identify: (id: string) => teacherRepo.findById(id),
-  exists: (email: string) => teacherService.exists(email),
-  create: (email: string, password: string) => teacherRepo.create(email, password)
+  identify: (id: string) => teacherRepo.findById(id)
 }

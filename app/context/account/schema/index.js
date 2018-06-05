@@ -6,8 +6,8 @@ const options = { discriminatorKey: 'kind' }
 
 const accountSchema = new Schema({
   email: { type: String, required: true, unique: true },
-  firstName: String,
-  lastName: String,
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
   password: { type: String, required: true },
   updatedAt: Date,
   createdAt: Date
