@@ -7,6 +7,6 @@ const answerRepo = new AnswerRepo()
 export default {
   index: () => answerRepo.findAll(),
   show: id => answerRepo.findById(id),
-  findForQuestion: questionId => answerService.findFirQuestion(questionId),
+  findForQuestion: questionId => answerService.findForQuestion(questionId),
   create: (text, studentId, questionId) => answerRepo.create(text, studentId, questionId)
 }

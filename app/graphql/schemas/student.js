@@ -1,4 +1,4 @@
-import StudentContext from '../../../context/student'
+import StudentContext from '../../context/student'
 
 export const StudentSchema = `
   type Student {

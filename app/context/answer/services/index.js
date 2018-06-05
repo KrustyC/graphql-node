@@ -8,7 +8,7 @@ export default class AnswerService {
     this.answerRepo = new AnswerRepo()
   }
 
-  async findFirQuestion(questionId) {
+  async findForQuestion(questionId) {
     return this.answerRepo.findBy({ question: questionId })
   }
 }

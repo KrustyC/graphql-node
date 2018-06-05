@@ -1,5 +1,5 @@
-import QuizContext from '../../../context/quiz'
-import TeacherContext from '../../../context/teacher'
+import QuizContext from '../../context/quiz'
+import TeacherContext from '../../context/teacher'
 
 export const QuizSchema = `
   type Quiz {
@@ -30,7 +30,7 @@ const checkTeacher = (context) => {
 
 export const QuizResolvers = {
   Quiz: {
-    teacher: ({ teacher }) => TeacherContext.show(teacher),
+    teacher: ({ teacher }) => TeacherContext.show(teacher)
   },
   Query: {
     quiz: (_, { id }) => QuizContext.show(id),

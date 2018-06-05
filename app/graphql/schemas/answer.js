@@ -1,10 +1,10 @@
-import AnswerContext from '../../../context/answer'
+import AnswerContext from '../../context/answer'
 
 export const AnswerSchema = `
   type Answer {
     _id: String
     text: String
-    isCorrect: Bool
+    isCorrect: Boolean
     student: Student
     question: Question
   }
@@ -15,7 +15,7 @@ export const AnswerSchema = `
   }
 
   extend type Mutation {
-    dddAnswer(title: String, description: String): Answer
+    addAnswer(title: String, description: String): Answer
   }
 `
 

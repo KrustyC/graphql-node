@@ -1,5 +1,5 @@
-import TeacherContext from '../../../context/teacher'
-import QuizContext from '../../../context/quiz'
+import TeacherContext from '../../context/teacher'
+import QuizContext from '../../context/quiz'
 
 export const TeacherSchema = `
   type Teacher {
@@ -7,7 +7,7 @@ export const TeacherSchema = `
     email: String
     firstName: String
     lastName: String
-    quizzes: [Quizzes]
+    quizzes: [Quiz]
   }
 
   extend type Query {
@@ -16,7 +16,7 @@ export const TeacherSchema = `
   }
 
   extend type Mutation {
-    dddTeacher(email: String, firstName: String, lastName: String, password: String): Teacher
+    addTeacher(email: String, firstName: String, lastName: String, password: String): Teacher
   }
 `
 

@@ -1,7 +1,9 @@
-import toLower from 'lodash/toLower'
-
 import Errors from '../../library/errors'
-import UserContext from '../user'
+import StudentContext from '../student'
+import TeacherContext from '../teacher'
+
+const STUDENT_TYPE = 1
+const TEACHER_TYPE = 2
 
 /**
  * Create a new user
@@ -9,17 +11,25 @@ import UserContext from '../user'
  * @param  {Object}
  * @return {User}
  */
-export async function signup(email: string, password: string) {
-  const doesUserExist = await UserContext.identify(toLower(email))
-  console.log(email, password)
-  if (doesUserExist) {
-    // const withFb = doesUserExist.facebookProvider && doesUserExist.facebookProvider.id
-    // const msg = withFb ? 'You have already signed up with facebook' : 'Email address is already registered'
+export async function signup(email: string, type: Number, password: string) {
+  const doesStudentExist = await StudentContext.exists(email)
+  const doesTeacherExist = await TeacherContext.exists(email)
+  const accountAlreadyExists = doesStudentExist || doesTeacherExist
 
+  if (accountAlreadyExists) {
     throw Errors.BadRequestError(400, null, null, { msg: 'Email address already exists' })
   }
 
-  return UserContext.create(email, password)
+  switch (type) {
+    case STUDENT_TYPE: {
+      return StudentContext.create(email, password)
+    }
+    case TEACHER_TYPE: {
+      return TeacherContext.create(email, password)
+    }
+    default:
+      throw Errors.BadRequestError(400, null, null, { msg: 'Types need to be provided' })
+  }
 }
 
 /**

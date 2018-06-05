@@ -1,9 +1,9 @@
-import QuestionContext from '../../../context/question'
+import QuestionContext from '../../context/question'
 
 export const QuestionSchema = `
   type Question {
     _id: String
-    isCorrect: Bool
+    text: String
     quiz: [Quiz]
   }
 
