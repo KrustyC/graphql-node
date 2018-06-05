@@ -16,6 +16,10 @@ export default class AccountRepository extends Repository {
     return !!account
   }
 
+  async findForLogin(email: string) {
+    return this.findOneBy({ email: toLower(email) })
+  }
+
   async create(firstName, lastName, email, password, type) {
     let kind = null
 

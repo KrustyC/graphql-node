@@ -19,45 +19,18 @@ export async function signup(
   return AccountContext.create(firstName, lastName, email, password, type)
 }
 
-/**
- * Create a new user
- *
- * @param  {Object}
- * @return {User}
- */
 export async function login(email: string, password: string) {
-  console.log(email, password)
-  // const validation = Validator.check(formData, {
-  //   email: { required: true, email: true, type: 'string' },
-  //   firstName: { required: true, type: 'string' },
-  //   lastName: { required: true, type: 'string' },
-  //   password: { required: true, type: 'string' },
-  //   facebookToken: { type: 'string' }
-  // })
+  const account = await AccountContext.findForLogin(email)
+  console.log('account', account)
+  if (!account) {
+    throw Error('Email does not exists')
+  }
 
-  // if (validation.failed()) {
-  //   throw Errors.ValidationError(validation.errors().asSentence())
-  // }
+  const isPasswordCorrect = await account.comparePassword(password)
 
-  // const doesUserExist = await UserAdapter.identify(_.toLower(formData.email))
+  if (!isPasswordCorrect) {
+    throw Error('Wrong password')
+  }
 
-  // if (doesUserExist) {
-  //   const withFb = doesUserExist.facebookProvider && doesUserExist.facebookProvider.id
-  //   const msg = withFb ? 'You have already signed up with facebook' : 'Email address is already registered'
-
-  //   throw Errors.BadRequestError(400, null, null, { email: msg })
-  // }
-
-  // const user = await UserAdapter.create(formData)
-
-  // if (user) {
-  //   UserAdapter.addPushInfo(user._id, _.get(formData, 'pushInfo', null))
-
-  //   // if push information is available, store for the user
-  //   Emitter.emit(ON.USER_SIGNED_UP, user)
-  // }
-
-  // return {
-  //   user: UserAdapter.prepareForAuth(user)
-  // }
+  return account
 }

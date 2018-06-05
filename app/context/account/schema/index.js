@@ -15,25 +15,38 @@ const accountSchema = new Schema({
 
 // eslint-disable-next-line
 accountSchema.pre('save', function (next) {
-  const user = this
-  user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(12), null)
-  user.email = user.email.toLowerCase()
-  user.updatedAt = new Date()
-  user.createdAt = new Date()
+  const account = this
+  account.password = bcrypt.hashSync(account.password, bcrypt.genSaltSync(12), null)
+  account.email = account.email.toLowerCase()
+  account.updatedAt = new Date()
+  account.createdAt = new Date()
   next()
 })
 
 // eslint-disable-next-line
+accountSchema.methods.comparePassword = function(candidatePassword, cb) {
+  console.log('compare')
+  return new Promise((resolve, reject) => (
+    bcrypt.compare(candidatePassword, this.password, (err) => {
+      if (err) {
+        return reject(err)
+      }
+      return resolve()
+    })
+  ))
+}
+
+// eslint-disable-next-line
 accountSchema.pre('update', function (next) {
-  const user = this
+  const account = this
   const data = {}
 
-  if (user.isModified('password')) {
-    _.set(data, 'password', bcrypt.hashSync(user.password, bcrypt.genSaltSync(12), null))
+  if (account.isModified('password')) {
+    _.set(data, 'password', bcrypt.hashSync(account.password, bcrypt.genSaltSync(12), null))
   }
 
-  if (user.isModified('email')) {
-    _.set(data, 'email', user.email.toLowerCase())
+  if (account.isModified('email')) {
+    _.set(data, 'email', account.email.toLowerCase())
   }
 
   this.update({}, { $set: { ...data, updatedAt: new Date() } })
