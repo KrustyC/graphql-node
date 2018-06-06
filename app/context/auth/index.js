@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import pick from 'lodash/pick'
 
-import Errors from '../../library/errors'
+import { BadRequestError } from '../../library/errors'
 import AccountContext from '../account'
 import config from '../../config/config'
 
@@ -20,10 +20,10 @@ export const signup = async (
 ) => {
   const doesAccountExist = await AccountContext.exists(email)
   if (doesAccountExist) {
-    throw Errors.BadRequestError(400, null, null, { msg: 'Email address already exists' })
+    throw new BadRequestError({ data: { email: 'Email address already exists' } })
   }
 
-  // @TOTO if type not in set then throw the error below
+  // @TODO if type not in set then throw the error below
   // throw Errors.BadRequestError(400, null, null, { msg: 'Types need to be provided' })
 
   const account = await AccountContext.create(firstName, lastName, email, password, type)
@@ -35,13 +35,13 @@ export const login = async (email: string, password: string) => {
   const account = await AccountContext.findForLogin(email)
 
   if (!account) {
-    throw Error('Email does not exists')
+    throw new BadRequestError({ data: { email: 'Email address does not exist' } })
   }
 
   const isPasswordCorrect = await account.comparePassword(password)
 
   if (!isPasswordCorrect) {
-    throw Error('Wrong password')
+    throw new BadRequestError({ data: { password: 'This password is incorrect' } })
   }
 
   const token = generateToken(account)
