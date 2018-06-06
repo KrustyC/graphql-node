@@ -23,6 +23,7 @@ export const AuthSchema = `
 
   type AuthAccountType {
     account: User
+    token: String
   }
 `
 
@@ -31,13 +32,10 @@ export const AuthResolvers = {
     __resolveType: obj => obj.kind
   },
   Mutation: {
-    login: async (_, { input: { email, password } }) => {
-      const account = await login(email, password)
-      return { account }
-    },
-    signup: async (_, { input: { firstName, lastName, email, password, type } }) => {
-      const account = await signup(firstName, lastName, email, password, type)
-      return { account }
-    }
+    login: async (_, { input: { email, password } }) => login(email, password),
+    signup: async (_, { input: { firstName, lastName, email, password, type } }) => (
+      signup(firstName, lastName, email, password, type)
+    )
   }
 }
+

@@ -25,13 +25,12 @@ accountSchema.pre('save', function (next) {
 
 // eslint-disable-next-line
 accountSchema.methods.comparePassword = function(candidatePassword, cb) {
-  console.log('compare')
   return new Promise((resolve, reject) => (
-    bcrypt.compare(candidatePassword, this.password, (err) => {
+    bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
       if (err) {
-        return reject(err)
+        return reject()
       }
-      return resolve()
+      return resolve(isMatch)
     })
   ))
 }

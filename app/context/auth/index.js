@@ -1,13 +1,23 @@
+import jwt from 'jsonwebtoken'
+import pick from 'lodash/pick'
+
 import Errors from '../../library/errors'
 import AccountContext from '../account'
+import config from '../../config/config'
 
-export async function signup(
+
+const generateToken = (account) => {
+  const payload = pick(account.toObject(), ['_id', 'email', 'firstName', 'lastName', 'kind'])
+  return jwt.sign(payload, config('jwtSecret'), { expiresIn: '7d' })
+}
+
+export const signup = async (
   firstName: string,
   lastName: string,
   email: string,
   password: string,
   type: Number
-) {
+) => {
   const doesAccountExist = await AccountContext.exists(email)
   if (doesAccountExist) {
     throw Errors.BadRequestError(400, null, null, { msg: 'Email address already exists' })
@@ -16,12 +26,14 @@ export async function signup(
   // @TOTO if type not in set then throw the error below
   // throw Errors.BadRequestError(400, null, null, { msg: 'Types need to be provided' })
 
-  return AccountContext.create(firstName, lastName, email, password, type)
+  const account = await AccountContext.create(firstName, lastName, email, password, type)
+  const token = generateToken(account)
+  return { account, token }
 }
 
-export async function login(email: string, password: string) {
+export const login = async (email: string, password: string) => {
   const account = await AccountContext.findForLogin(email)
-  console.log('account', account)
+
   if (!account) {
     throw Error('Email does not exists')
   }
@@ -32,5 +44,6 @@ export async function login(email: string, password: string) {
     throw Error('Wrong password')
   }
 
-  return account
+  const token = generateToken(account)
+  return { account, token }
 }
