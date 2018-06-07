@@ -10,6 +10,11 @@ const configValues = {
   engine: {
     apiKey: env.APOLLO_ENGINE_API_KEY
   },
+  sendInBlue: {
+    apiKey: env.SENDINBLUE_API_KEY,
+    recipientCatchAll: env.RECIPIENT_CATCH_ALL,
+    sender: env.EMAIL_SENDER
+  },
   dbConfig: {
     mock: env.DB_IS_MOCK || false,
     name: env.DB_NAME,
@@ -23,7 +28,7 @@ const configValues = {
 /**
  * Returns a value for a given config key
  */
-export default function config(key) {
+export default function config(key: string) {
   if (!key) {
     throw new Error('No key given')
   }

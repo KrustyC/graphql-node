@@ -13,8 +13,8 @@ export default function connectToDb() {
   const credentialString = dbUser && dbPass ? `${dbUser}:${dbPass}@` : ''
 
   const opts = dbUser && dbPass ? {
-    user: config.dbuser,
-    pass: config.dbpass,
+    user: dbUser,
+    pass: dbPass,
     auth: {
       authdb: 'admin'
     }

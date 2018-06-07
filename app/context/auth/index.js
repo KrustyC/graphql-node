@@ -2,6 +2,8 @@ import jwt from 'jsonwebtoken'
 import pick from 'lodash/pick'
 
 import { BadRequestError } from '../../library/errors'
+import Mailer from '../../library/mailer'
+import { CONFIRM_EMAIL } from '../../library/mailer/types'
 import AccountContext from '../account'
 import config from '../../config/config'
 
@@ -27,6 +29,14 @@ export const signup = async (
   // throw Errors.BadRequestError(400, null, null, { msg: 'Types need to be provided' })
 
   const account = await AccountContext.create(firstName, lastName, email, password, type)
+
+  const mailer = new Mailer()
+  const params = {
+    name: account.firstName,
+    confirmLink: 'https://wwww.example.com'
+  }
+  mailer.sendEmail(CONFIRM_EMAIL, [account], params)
+
   const token = generateToken(account)
   return { account, token }
 }
