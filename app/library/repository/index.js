@@ -1,12 +1,11 @@
-/* @flow */
+// @flow
 
 import _ from 'lodash'
-// import { Schema } from 'mongoose'
 
 export default class Repository {
   _schema
 
-  constructor(schema) {
+  constructor(schema: Object) {
     this._schema = schema
   }
 

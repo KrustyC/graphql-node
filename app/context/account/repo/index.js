@@ -24,7 +24,7 @@ export default class AccountRepository extends Repository {
     return new Account(account)
   }
 
-  async create(firstName, lastName, email, password, type) {
+  async create(firstName: string, lastName: string, email: string, password: string, type: Number) {
     let kind = null
 
     // @TOTO Create a dict to map type to kind

@@ -1,4 +1,5 @@
-/* @flow */
+// @flow
+
 import _ from 'lodash'
 import request from 'request'
 
@@ -21,7 +22,7 @@ export default class Mailer {
     this.sender = config('sendInBlue.sender')
   }
 
-  getRecipients(recipients: Array) {
+  getRecipients(recipients: Array<Object>) {
     if (config('env') === 'development') {
       return [{ email: config('sendInBlue.recipientCatchAll') }]
     }
@@ -43,7 +44,7 @@ export default class Mailer {
     }
   }
 
-  sendEmail(emailType: string, recipients: Array, params) {
+  sendEmail(emailType: string, recipients: Array<Object>, params: Object) {
     const emailInfo = this.getEmailInfo(emailType, params)
 
     const options = {
