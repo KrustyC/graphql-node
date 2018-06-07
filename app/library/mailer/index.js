@@ -61,5 +61,4 @@ export default class Mailer {
       console.log('Email sent')
     })
   }
-
 }
